@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Heart Disease Predictor</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <div class="container">
+        <h2 class='container-heading'>Heart Disease Predictor</h2>
+        <p>A Deep Learning Web App, Built with ANN and Flask.</p>
+    </div>
+
+    <div class="results">
+        {% if prediction > 0.35 %}
+            <h1 style="color: red;">Oops! Your heart condition is SEVERE.</h1>
+            <h3>Please consult a doctor. Stay healthy!</h3>
+            <img src="https://media.tenor.com/images/ad7e357ab210062fca586cf3bdce64ea/tenor.gif" alt="Danger" width="300" height="373">
+        {% else %}
+            <h1 style="color: green;">Wooh! Your heart looks NORMAL.</h1>
+            <h2>Long Live!</h2>
+            <img src="https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/image/rDtN98Qoishumwih/happy-heart_zkOwblyK_thumb.jpg" alt="Healthy Heart" width="420" height="403">
+        {% endif %}
+    </div>
+
+</body>
+</html>

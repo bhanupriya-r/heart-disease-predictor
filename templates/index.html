@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>Heart Disease Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://kit.fontawesome.com/5f3f547070.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <h2 class='container-heading'>Heart Disease Predictor</h2>
+        <form action="{{ url_for('predict') }}" method="POST">
+            <!-- Section 1 -->
+            <div class="form-section active" id="section-1">
+                <input class="form-input" type="text" name="age" placeholder="Enter your age" required>
+                <select name="sex" required>
+                    <option value="">Select Sex</option>
+                    <option value="1">Male</option>
+                    <option value="0">Female</option>
+                </select>
+                <div class="navigation-buttons">
+                    <button type="button" class="my-cta-button" onclick="nextSection(1)">Next</button>
+                </div>
+            </div>
+
+            <!-- Section 2 -->
+            <div class="form-section" id="section-2">
+                <select name="cp" required>
+                    <option value="">Chest Pain Type</option>
+                    <option value="0">Typical Angina</option>
+                    <option value="1">Atypical Angina</option>
+                    <option value="2">Asymptomatic</option>
+                </select>
+                <input class="form-input" type="text" name="trestbps" placeholder="Resting Blood Pressure (mm Hg)" required>
+                <div class="navigation-buttons">
+                    <button type="button" class="my-cta-button" onclick="prevSection(2)">Previous</button>
+                    <button type="button" class="my-cta-button" onclick="nextSection(2)">Next</button>
+                </div>
+            </div>
+
+            <!-- Section 3 -->
+            <div class="form-section" id="section-3">
+                <input class="form-input" type="text" name="chol" placeholder="Serum Cholesterol (mg/dl)" required>
+                <select name="fbs" required>
+                    <option value="">Fasting Blood Sugar > 120 mg/dl</option>
+                    <option value="1">True</option>
+                    <option value="0">False</option>
+                </select>
+                <div class="navigation-buttons">
+                    <button type="button" class="my-cta-button" onclick="prevSection(3)">Previous</button>
+                    <button type="button" class="my-cta-button" onclick="nextSection(3)">Next</button>
+                </div>
+            </div>
+
+            <!-- Section 4 -->
+            <div class="form-section" id="section-4">
+                <select name="restecg" required>
+                    <option value="">Resting Electrocardiographic Results</option>
+                    <option value="0">Normal</option>
+                    <option value="1">ST-T Wave Abnormality</option>
+                    <option value="2">Left Ventricular Hypertrophy</option>
+                </select>
+                <input class="form-input" type="text" name="thalach" placeholder="Maximum Heart Rate Achieved" required>
+                <div class="navigation-buttons">
+                    <button type="button" class="my-cta-button" onclick="prevSection(4)">Previous</button>
+                    <button type="button" class="my-cta-button" onclick="nextSection(4)">Next</button>
+                </div>
+            </div>
+
+            <!-- Section 5 -->
+            <div class="form-section" id="section-5">
+                <select name="exang" required>
+                    <option value="">Exercise Induced Angina</option>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+                <input class="form-input" type="text" name="oldpeak" placeholder="ST Depression Induced by Exercise" required>
+                <input class="form-input" type="text" name="slope" placeholder="Slope of the Peak Exercise ST Segment" required>
+                <input class="form-input" type="text" name="ca" placeholder="Number of Major Vessels Colored by Fluoroscopy" required>
+                <div class="navigation-buttons">
+                    <button type="button" class="my-cta-button" onclick="prevSection(5)">Previous</button>
+                    <button type="submit" class="my-cta-button">Predict</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function nextSection(current) {
+            document.getElementById(`section-${current}`).classList.remove('active');
+            document.getElementById(`section-${current + 1}`).classList.add('active');
+        }
+
+        function prevSection(current) {
+            document.getElementById(`section-${current}`).classList.remove('active');
+            document.getElementById(`section-${current - 1}`).classList.add('active');
+        }
+    </script>
+    <a href="{{ url_for('predict') }}">Go to Result Page</a>
+</body>
+</html>
