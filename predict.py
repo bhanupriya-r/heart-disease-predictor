@@ -16,7 +16,7 @@ class heart_disease_predictor:
 
         result = model.predict(attributes)
         print(result)
-        if result > 0.35:
+        if result > 0.6:
             prediction = 'Severe'
             print(prediction)
         else:

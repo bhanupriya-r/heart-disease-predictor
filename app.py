@@ -1,11 +1,17 @@
 from flask import Flask, render_template, request
 from keras.models import load_model
 import numpy as np
+import pandas as pd
+from sklearn.preprocessing import StandardScaler
 
 app = Flask(__name__)
 
 # Load the trained model
 model = load_model('hdp.keras')
+df = pd.read_csv('processed_heart.csv')  # Load dataset
+X_train = df.iloc[:, :-1].values
+ss = StandardScaler()
+ss.fit(X_train)
 
 @app.route('/')
 def index():
@@ -34,13 +40,15 @@ def predict():
                 float(request.form['slope']),
                 float(request.form['ca'])
             ]
-
+            print("Input Features:", features)
             # Convert into NumPy array & reshape for prediction
-            data = np.array([features])  # Shape (1, 12)
+            features = np.array([features])  # Convert to NumPy array
+            features_scaled = ss.transform(features)  # Shape (1, 12)
 
             # Make prediction
-            prediction = model.predict(data)[0][0]  # Extract single value
-
+            prediction = model.predict(features_scaled)[0][0]   # Extract single value
+            print("Model Prediction:", prediction)
+            
             return render_template('result.html', prediction=prediction)
 
         except Exception as e:
